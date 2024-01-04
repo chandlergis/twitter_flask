@@ -1,0 +1,49 @@
+<!-- twitter_flask_front.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitter Data</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Twitter Data</h1>
+    <table>
+        <tr>
+            <th>User ID</th>
+            <th>Created At</th>
+            <th>Favorite Count</th>
+            <th>Bookmark Count</th>
+            <th>Text</th>
+            <th>Media URL</th>
+        </tr>
+        {% for tweets in twitter_data  %}
+        <tr>
+            <td>{{ tweets.user_id_str }}</td>
+            <td>{{ tweets.created_at }}</td>
+            <td>{{ tweets.favorite_count }}</td>
+            <td>{{ tweets.bookmark_count }}</td>
+            <td>{{ tweets.full_text }}</td>
+            <td>
+                {% if tweets.media_url_https %}
+                    {% set media_urls = tweets.media_url_https.split(',') %}
+                    {% for url in media_urls %}
+                        <img src="{{ url }}" alt="Twitter Media" style="max-width: 100px; max-height: 100px;"> <!-- Adjust size as needed -->
+                    {% endfor %}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+
